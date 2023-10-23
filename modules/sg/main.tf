@@ -2,7 +2,7 @@
 # EC2 SG
 
 resource "aws_security_group" "ec2_sg" {
-  name   = "ec2_sg"
+  name   = "${var.naming_prefix}-ec2-sg"
   vpc_id = var.vpc_id
 
   # HTTP access from within the VPC
@@ -25,7 +25,7 @@ resource "aws_security_group" "ec2_sg" {
 # ALB SG
 
 resource "aws_security_group" "alb_sg" {
-  name   = "alb_sg"
+  name   = "${var.naming_prefix}-alb-sg"
   vpc_id = var.vpc_id
 
   # HTTP access from anywhere
