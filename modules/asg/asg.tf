@@ -1,5 +1,5 @@
 resource "aws_autoscaling_group" "asg" {
-  name                = "nick_terraform"
+  name                = "${var.naming_prefix}-asg"
   min_size            = 2
   max_size            = 4
   desired_capacity    = 2
