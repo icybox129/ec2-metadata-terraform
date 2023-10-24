@@ -63,7 +63,7 @@ resource "aws_autoscaling_policy" "scale_down" {
 resource "aws_cloudwatch_metric_alarm" "scale_down" {
   alarm_description   = "Monitors CPU utilization for ASG"
   alarm_actions       = [aws_autoscaling_policy.scale_down.arn]
-  alarm_name          = "scale-up"
+  alarm_name          = "scale-down"
   comparison_operator = "LessThanOrEqualToThreshold"
   namespace           = "AWS/EC2"
   metric_name         = "CPUUtilization"
