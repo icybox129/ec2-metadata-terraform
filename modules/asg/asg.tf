@@ -35,6 +35,7 @@ resource "aws_autoscaling_policy" "scale_up" {
   cooldown               = 120
 }
 
+# Cloudwatch alarm checking if CPU util is >= 50 and scales up according to scale_up policy
 resource "aws_cloudwatch_metric_alarm" "scale_up" {
   alarm_description   = "Monitors CPU utilization for ASG"
   alarm_actions       = [aws_autoscaling_policy.scale_up.arn]
@@ -42,7 +43,7 @@ resource "aws_cloudwatch_metric_alarm" "scale_up" {
   comparison_operator = "GreaterThanOrEqualToThreshold"
   namespace           = "AWS/EC2"
   metric_name         = "CPUUtilization"
-  threshold           = "2"
+  threshold           = "50"
   evaluation_periods  = "1"
   period              = "60"
   statistic           = "Average"
@@ -60,6 +61,7 @@ resource "aws_autoscaling_policy" "scale_down" {
   cooldown               = 120
 }
 
+# Cloudwatch alarm checking if CPU util is <= 25 and scales down according to scale_down policy
 resource "aws_cloudwatch_metric_alarm" "scale_down" {
   alarm_description   = "Monitors CPU utilization for ASG"
   alarm_actions       = [aws_autoscaling_policy.scale_down.arn]
@@ -67,7 +69,7 @@ resource "aws_cloudwatch_metric_alarm" "scale_down" {
   comparison_operator = "LessThanOrEqualToThreshold"
   namespace           = "AWS/EC2"
   metric_name         = "CPUUtilization"
-  threshold           = "1"
+  threshold           = "25"
   evaluation_periods  = "2"
   period              = "120"
   statistic           = "Average"

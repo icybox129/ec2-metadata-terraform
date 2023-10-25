@@ -10,10 +10,6 @@
 
 # }
 
-# data "aws_route53_delegation_set" "main" {
-#   id = "N0450644BLMEYYZGZALK"
-# }
-
 data "aws_route53_zone" "primary" {
   zone_id =   "Z05213995IQENL3CFKUC"
 }
@@ -42,6 +38,7 @@ resource "aws_route53_record" "apex" {
 #   }
 # }
 
+# Created a CNAME for www for the SSL cert to apply properly
 resource "aws_route53_record" "www-cname" {
   name    = "www"
   records = ["${var.alb_dns}"]
@@ -50,10 +47,12 @@ resource "aws_route53_record" "www-cname" {
   zone_id = data.aws_route53_zone.primary.zone_id
 }
 
+# Creates SSL cert
 resource "aws_acm_certificate" "icybox_cert" {
   domain_name       = var.domain
   validation_method = "DNS"
 
+# Allows the cert created above to be applied to any subdomains, such as www.icybox.co.uk
   subject_alternative_names = [
     "*.icybox.co.uk"
   ]
