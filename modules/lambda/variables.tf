@@ -11,3 +11,7 @@ variable "subnets" {
   type        = set(string)
   description = "All the subnets created in the network module"
 }
+
+variable "private_subnet" {
+  type = string
+}

@@ -47,5 +47,6 @@ module "lambda" {
   source        = "../../modules/lambda"
   naming_prefix = local.naming_prefix
   subnets       = module.network.subnets
+  private_subnet = module.network.private_subnet
   ec2_sg        = [module.sg.ec2_sg_id]
 }
