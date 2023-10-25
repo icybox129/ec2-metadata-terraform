@@ -32,11 +32,11 @@ resource "aws_subnet" "public_subnets" {
 # PRIVATE SUBNET #
 
 resource "aws_subnet" "private_subnet" {
-  vpc_id = aws_vpc.vpc.id
-  cidr_block = cidrsubnet(var.vpc_cidr_block, 8, 64)
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = cidrsubnet(var.vpc_cidr_block, 8, 64)
   map_public_ip_on_launch = false
 
-  tags = { Name = "${var.naming_prefix}-private-subnet"}
+  tags = { Name = "${var.naming_prefix}-private-subnet" }
 }
 
 # ROUTING #
@@ -56,7 +56,7 @@ resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.vpc.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
 
@@ -64,7 +64,7 @@ resource "aws_route_table" "private_rt" {
 }
 
 resource "aws_route_table_association" "private_rtb_association" {
-  subnet_id = aws_subnet.private_subnet.id
+  subnet_id      = aws_subnet.private_subnet.id
   route_table_id = aws_route_table.private_rt.id
 }
 
@@ -77,15 +77,15 @@ resource "aws_route_table_association" "rtb_association" {
 # ELASTIC IP #
 
 resource "aws_eip" "eip" {
-  domain = "vpc"
-  depends_on = [ aws_internet_gateway.igw ]
+  domain     = "vpc"
+  depends_on = [aws_internet_gateway.igw]
 
   tags = { Name = "${var.naming_prefix}-eip" }
 }
 
 resource "aws_nat_gateway" "nat_gateway" {
   allocation_id = aws_eip.eip.id
-  subnet_id = aws_subnet.public_subnets[0].id
+  subnet_id     = aws_subnet.public_subnets[0].id
 
   tags = { Name = "${var.naming_prefix}-nat" }
 }
