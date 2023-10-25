@@ -19,3 +19,11 @@ output "aws_alb_public_dns" {
   value       = "http://${aws_lb.alb.dns_name}"
   description = "Public DNS hostname for the application loadbalancer"
 }
+
+output "aws_alb_dns" {
+  value = aws_lb.alb.dns_name
+}
+
+output "aws_alb_zone_id" {
+  value = aws_lb.alb.zone_id
+}

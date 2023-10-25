@@ -38,3 +38,7 @@ variable "ec2_sg" {
   type        = set(string)
   description = "Security group settings for EC2 instances"
 }
+
+variable "icybox_cert_arn" {
+  type = string
+}
