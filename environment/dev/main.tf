@@ -42,3 +42,10 @@ module "r53" {
   alb_dns       = module.alb.aws_alb_dns
   alb_zone_id   = module.alb.aws_alb_zone_id
 }
+
+module "lambda" {
+  source        = "../../modules/lambda"
+  naming_prefix = local.naming_prefix
+  subnets       = module.network.subnets
+  ec2_sg        = [module.sg.ec2_sg_id]
+}
