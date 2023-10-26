@@ -17,4 +17,10 @@ resource "aws_lambda_function" "test_lambda_function" {
     subnet_ids         = [var.private_subnet]
     security_group_ids = var.ec2_sg
   }
+
+  environment {
+    variables = {
+      SECRET_NAME = var.test_secret
+    }
+  }
 }

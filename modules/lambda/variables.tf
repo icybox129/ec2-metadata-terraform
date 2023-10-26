@@ -15,3 +15,7 @@ variable "subnets" {
 variable "private_subnet" {
   type = string
 }
+
+variable "test_secret" {
+  type = string
+}

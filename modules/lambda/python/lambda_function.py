@@ -9,9 +9,10 @@
 import json
 import boto3
 import base64
+import os
 
 # Your secret's name and region
-secret_name = "aws-managed-secrets"
+secret_name = os.environ['SECRET_NAME']
 region_name = "us-east-1"
 
 #Set up our Session and Client
