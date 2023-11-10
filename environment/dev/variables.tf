@@ -7,7 +7,7 @@ variable "environment" {
   default = "dev"
 }
 
-variable "naming_prefix" {
+variable "project_name" {
   type    = string
   default = "lb-checker"
 }

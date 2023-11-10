@@ -1,6 +1,5 @@
 variable "naming_prefix" {
   type    = string
-  default = "lb-checker"
 }
 
 variable "enable_dns_hostnames" {

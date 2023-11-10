@@ -1,6 +1,6 @@
 # # Creates a Reusable Delegation Set. This creates a set of 4 name servers that can be used across multiple hosted zones
 # resource "aws_route53_delegation_set" "main" {
-  
+
 # }
 
 # # Creates a public hosted zone using a delegation set
@@ -11,12 +11,12 @@
 # }
 
 data "aws_route53_zone" "primary" {
-  zone_id =   "Z05213995IQENL3CFKUC"
+  zone_id = "Z05213995IQENL3CFKUC"
 }
 
 resource "aws_route53_record" "apex" {
   zone_id = data.aws_route53_zone.primary.zone_id # Replace with your zone ID
-  name    = var.domain                       # Replace with your name/domain/subdomain
+  name    = var.domain                            # Replace with your name/domain/subdomain
   type    = "A"
 
   alias {
@@ -52,7 +52,7 @@ resource "aws_acm_certificate" "icybox_cert" {
   domain_name       = var.domain
   validation_method = "DNS"
 
-# Allows the cert created above to be applied to any subdomains, such as www.icybox.co.uk
+  # Allows the cert created above to be applied to any subdomains, such as www.icybox.co.uk
   subject_alternative_names = [
     "*.icybox.co.uk"
   ]
