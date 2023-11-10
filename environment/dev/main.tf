@@ -1,7 +1,7 @@
 provider "aws" {
-  region     = "us-east-1"
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key
+  region = "us-east-1"
+  # access_key = var.aws_access_key
+  # secret_key = var.aws_secret_key
 }
 
 module "network" {
@@ -14,7 +14,6 @@ module "alb" {
   naming_prefix           = local.naming_prefix
   vpc_id                  = module.network.vpc_id
   subnets                 = module.network.subnets
-  vpc_public_subnet_count = module.network.vpc_public_subnet_count
   alb_sg                  = [module.sg.alb_sg_id]
   ec2_sg                  = [module.sg.ec2_sg_id]
   icybox_cert_arn         = module.r53.icybox_cert_arn
@@ -49,10 +48,10 @@ module "lambda" {
   subnets        = module.network.subnets
   private_subnet = module.network.private_subnet
   ec2_sg         = [module.sg.ec2_sg_id]
-  test_secret = module.sm.test_secret
+  test_secret    = module.sm.test_secret
 }
 
 module "sm" {
-  source = "../../modules/sm"
+  source        = "../../modules/sm"
   naming_prefix = local.naming_prefix
 }
